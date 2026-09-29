@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Ultimate Git & GitHub Handbook: The Box & Workshop Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+  :root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --primary-light: #eff6ff;
+    --accent: #8b5cf6;
+    --dark: #0f172a;
+    --slate: #334155;
+    --muted: #64748b;
+    --light-bg: #f8fafc;
+    --card-bg: #ffffff;
+    --border: #e2e8f0;
+    --border-light: #f1f5f9;
+    --success: #10b981;
+    --success-bg: #ecfdf5;
+    --warning: #f59e0b;
+    --warning-bg: #fffbeb;
+    --danger: #ef4444;
+    --danger-bg: #fef2f2;
+    --code-bg: #0f172a;
+    --box-color: #d97706;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: var(--slate);
+    background-color: var(--light-bg);
+    line-height: 1.65;
+    font-size: 15px;
+    padding: 2.5rem 1.5rem;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--card-bg);
+    padding: 3.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.03);
+    border: 1px solid var(--border);
+  }
+
+  /* Header Cover */
+  .cover {
+    border-bottom: 2px solid var(--border-light);
+    padding-bottom: 2.5rem;
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+
+  .badge-tag {
+    display: inline-block;
+    padding: 0.35rem 1rem;
+    background: linear-gradient(135deg, #dbeafe 0%, #ede9fe 100%);
+    color: var(--primary);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-radius: 9999px;
+    margin-bottom: 1rem;
+    border: 1px solid #bfdbfe;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--dark);
+    line-height: 1.2;
+    margin-bottom: 0.8rem;
+    letter-spacing: -0.02em;
+  }
+
+  .subtitle {
+    font-size: 1.15rem;
+    color: var(--muted);
+    font-weight: 400;
+    max-width: 650px;
+    margin: 0 auto 1.5rem auto;
+  }
+
+  .meta-bar {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    font-size: 0.88rem;
+    color: var(--muted);
+    padding-top: 1rem;
+    border-top: 1px dashed var(--border);
+  }
+
+  /* Headings */
+  h2 {
+    font-size: 1.6rem;
+    color: var(--dark);
+    margin: 2.8rem 0 1.2rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-light);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  h3 {
+    font-size: 1.22rem;
+    color: var(--slate);
+    margin: 1.8rem 0 0.8rem 0;
+    font-weight: 700;
+  }
+
+  h4 {
+    font-size: 1.05rem;
+    color: var(--dark);
+    margin: 1.2rem 0 0.4rem 0;
+    font-weight: 600;
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  /* Analogy Banner */
+  .analogy-banner {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border: 1px solid #f59e0b;
+    border-radius: 14px;
+    padding: 1.5rem 1.8rem;
+    margin: 2rem 0;
+    color: #78350f;
+  }
+
+  .analogy-banner h3 {
+    color: #92400e;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* Cards & Grids */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin: 1.5rem 0;
+  }
+
+  .analogy-card {
+    background: var(--light-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.4rem;
+    position: relative;
+    transition: all 0.2s ease;
+  }
+
+  .analogy-card .icon-box {
+    font-size: 1.8rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .analogy-card h4 {
+    margin: 0 0 0.4rem 0;
+    color: var(--dark);
+  }
+
+  .analogy-card p {
+    font-size: 0.92rem;
+    color: var(--slate);
+    margin: 0;
+  }
+
+  /* Command Block */
+  .cmd-block {
+    background: #0f172a;
+    border-radius: 12px;
+    padding: 1.2rem 1.4rem;
+    margin: 1.2rem 0 1.6rem 0;
+    color: #e2e8f0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.92rem;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .cmd-block code {
+    color: #38bdf8;
+    font-weight: 600;
+  }
+
+  .cmd-comment {
+    color: #64748b;
+    font-style: italic;
+    display: block;
+    margin-top: 0.3rem;
+  }
+
+  .inline-code {
+    background: #f1f5f9;
+    color: #0f172a;
+    padding: 0.15rem 0.45rem;
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88em;
+    border: 1px solid #e2e8f0;
+    font-weight: 600;
+  }
+
+  /* Callouts */
+  .callout {
+    padding: 1.2rem 1.4rem;
+    border-radius: 12px;
+    margin: 1.4rem 0;
+    border-left: 4px solid;
+    font-size: 0.95rem;
+  }
+
+  .callout-info {
+    background: var(--primary-light);
+    border-color: var(--primary);
+    color: #1e3a8a;
+  }
+
+  .callout-success {
+    background: var(--success-bg);
+    border-color: var(--success);
+    color: #065f46;
+  }
+
+  .callout-warning {
+    background: var(--warning-bg);
+    border-color: var(--warning);
+    color: #92400e;
+  }
+
+  .callout-danger {
+    background: var(--danger-bg);
+    border-color: var(--danger);
+    color: #991b1b;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0 2rem 0;
+    font-size: 0.92rem;
+  }
+
+  th {
+    background: var(--light-bg);
+    color: var(--dark);
+    font-weight: 700;
+    text-align: left;
+    padding: 0.85rem 1rem;
+    border-bottom: 2px solid var(--border);
+  }
+
+  td {
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  tr:hover td {
+    background-color: #fafbfc;
+  }
+
+  .tag-safe {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    background: #dcfce7;
+    color: #15803d;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .tag-caution {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    background: #fef3c7;
+    color: #b45309;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .tag-danger {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    background: #fee2e2;
+    color: #b91c1c;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  /* Workflow Steps */
+  .workflow-step {
+    display: flex;
+    gap: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .step-num {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-top: 0.2rem;
+  }
+
+  .step-content {
+    flex-grow: 1;
+  }
+
+  .step-content h4 {
+    margin-top: 0;
+  }
+
+  /* Print Styles for PDF generation */
+  @media print {
+    body {
+      background: white !important;
+      padding: 0 !important;
+      font-size: 12pt !important;
+    }
+    .container {
+      max-width: 100% !important;
+      padding: 0 !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+    .cmd-block {
+      background: #1e293b !important;
+      color: #f8fafc !important;
+      border: 1px solid #cbd5e1 !important;
+      page-break-inside: avoid;
+    }
+    .page-break {
+      page-break-before: always;
+    }
+    h2 {
+      page-break-after: avoid;
+      margin-top: 2rem;
+    }
+    .analogy-banner, .callout, table {
+      page-break-inside: avoid;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- COVER SECTION -->
+  <div class="cover">
+    <div class="badge-tag">Zero to Master • Visual Handbook</div>
+    <h1>The Git & GitHub Master Guide</h1>
+    <div class="subtitle">An exhaustive mental model, daily workflow, and emergency handbook built completely around the <em>"Box & Shipping Workshop"</em> analogy.</div>
+    <div class="meta-bar">
+      <span>📦 Project: LangChain & AI Engineering</span>
+      <span>🛡️ Defense: Zero-Leak Security</span>
+      <span>🚀 Author: Prepared for Shiva</span>
+    </div>
+  </div>
+
+  <!-- CHAPTER 1: THE MASTER ANALOGY -->
+  <h2>📦 1. The Core Mental Model: The Shipping Workshop</h2>
+  <p>To master Git without getting lost in technical jargon, remember this one fundamental truth: <strong>Git is not magic; it is simply a physical packaging workshop for your project files.</strong></p>
+
+  <div class="analogy-banner">
+    <h3>🏢 The 4 Physical Locations of Git</h3>
+    <p>Every single Git command in existence simply moves your code between these four physical spaces:</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="analogy-card">
+      <div class="icon-box">🛠️</div>
+      <h4>1. The Workbench (Working Directory)</h4>
+      <p>This is your actual project folder on your computer. Here, you write code, test scripts, make mistakes, and create files. Nothing is saved in Git yet.</p>
+    </div>
+
+    <div class="analogy-card">
+      <div class="icon-box">📦</div>
+      <h4>2. The Open Packing Box (Staging Area)</h4>
+      <p>A cardboard box sitting open next to your workbench. When you finish a unit of work, you pick specific files and drop them into this box waiting to be sealed.</p>
+    </div>
+
+    <div class="analogy-card">
+      <div class="icon-box">🔐</div>
+      <h4>3. The Local Vault (Local Repository)</h4>
+      <p>A secure, fireproof archive closet in the corner of your room (the hidden <code>.git</code> folder). When you seal the box with tape, it gets stored here in chronological order.</p>
+    </div>
+
+    <div class="analogy-card">
+      <div class="icon-box">🌐</div>
+      <h4>4. Central Warehouse (GitHub / Remote)</h4>
+      <p>The global cloud warehouse located on the internet. You load copies of your sealed boxes onto a delivery truck and ship them here for backup and sharing.</p>
+    </div>
+  </div>
+
+  <div class="callout callout-info">
+    <strong>Key Terminology in Box Terms:</strong><br>
+    • <strong>Commit:</strong> Taping the box shut, stamping it with an unalterable barcode (the SHA Hash like <code>643b72c</code>), and slapping a sticky note on it explaining what's inside.<br>
+    • <strong>HEAD:</strong> A bright red laser pointer showing which box you are currently standing next to.<br>
+    • <strong>Branch:</strong> A separate assembly line. You can build a new experimental feature on a side table without disrupting the main assembly line.
+  </div>
+
+  <!-- CHAPTER 2: ESSENTIAL COMMANDS -->
+  <div class="page-break"></div>
+  <h2>⚡ 2. Every Single Git Command Demystified</h2>
+  <p>Here is what every core command does in plain English, what it does to the box, and when you should use it.</p>
+
+  <h3>A. Setting Up the Workshop</h3>
+
+  <h4><code>git init</code></h4>
+  <p><strong>What it does:</strong> Sweeps out the corner of your folder and builds the secure storage vault (the hidden <code>.git</code> folder). It transforms an ordinary folder into a Git-managed workshop.</p>
+  <p><strong>When to use:</strong> Exactly once at the start of a brand new project on your computer.</p>
+  <div class="cmd-block">
+    <code>git init</code>
+    <span class="cmd-comment"># Initializes an empty local Git repository</span>
+  </div>
+
+  <h4><code>git config</code></h4>
+  <p><strong>What it does:</strong> Prints your employee ID badge (name and email). Git stamps this identity on every single box you seal forever.</p>
+  <div class="cmd-block">
+    <code>git config --global user.name "Your Name"</code><br>
+    <code>git config --global user.email "your-email@example.com"</code>
+    <span class="cmd-comment"># Set once per computer; attaches to all future commits</span>
+  </div>
+
+  <h4><code>git clone &lt;url&gt;</code></h4>
+  <p><strong>What it does:</strong> Downloads a full copy of someone else's entire warehouse from GitHub directly onto your workbench, including every box they ever sealed in history.</p>
+  <div class="cmd-block">
+    <code>git clone https://github.com/user/project.git</code>
+    <span class="cmd-comment"># Copies an existing remote project to your machine</span>
+  </div>
+
+  <hr style="border: 0; border-top: 1px dashed var(--border); margin: 2rem 0;">
+
+  <h3>B. Day-to-Day Packing & Committing</h3>
+
+  <h4><code>git status</code> (Your Most Important Command)</h4>
+  <p><strong>What it does:</strong> You look down at your workbench and glance inside the open box. It tells you: <em>"What files did you change? What is sitting in the open box? What files are untracked?"</em></p>
+  <p><strong>When to use:</strong> Run this constantly! Before adding, before committing, before pushing.</p>
+  <div class="cmd-block">
+    <code>git status</code>
+    <span class="cmd-comment"># Green = In the open box (staged). Red = Modified on workbench, not in box yet.</span>
+  </div>
+
+  <h4><code>git diff</code></h4>
+  <p><strong>What it does:</strong> Runs an X-ray scanner between your workbench files and the last sealed box. It shows you the exact lines of code added (+) or removed (-).</p>
+  <div class="cmd-block">
+    <code>git diff</code>
+    <span class="cmd-comment"># Shows unstaged changes on your workbench</span><br><br>
+    <code>git diff --staged</code>
+    <span class="cmd-comment"># Shows changes inside the open box compared to the last sealed box</span>
+  </div>
+
+  <h4><code>git add &lt;file&gt;</code> and <code>git add .</code></h4>
+  <p><strong>What it does:</strong> You pick an item off your workbench and place it into the open cardboard box (the Staging Area). Running <code>git add .</code> sweeps all modified, clean files into the box at once.</p>
+  <div class="cmd-block">
+    <code>git add updatedlangchain/4-messages.ipynb</code>
+    <span class="cmd-comment"># Places one specific file into the box</span><br><br>
+    <code>git add .</code>
+    <span class="cmd-comment"># Places all modified & new files into the box (respects .gitignore)</span>
+  </div>
+
+  <h4><code>git commit -m "Description"</code></h4>
+  <p><strong>What it does:</strong> You tape the cardboard box shut, print a unique barcode (hash), write a sticky-note summary on top, and store it safely into your local vault.</p>
+  <div class="cmd-block">
+    <code>git commit -m "Add tool-calling functions to LangChain notebook"</code>
+    <span class="cmd-comment"># Sealing the box with an informative note</span>
+  </div>
+
+  <h4><code>git commit --amend</code></h4>
+  <p><strong>What it does:</strong> <em>"Oops, I just taped the box shut 5 seconds ago, but I forgot one file, or made a typo in the sticky note!"</em> This unseals the very last box, lets you slip in new items, and reseals it with the same or updated message without creating an extra box.</p>
+  <div class="cmd-block">
+    <code>git add forgotten_file.py</code><br>
+    <code>git commit --amend -m "Updated commit message"</code>
+    <span class="cmd-comment"># Modifies the most recent commit instead of creating a new one</span>
+  </div>
+
+  <hr style="border: 0; border-top: 1px dashed var(--border); margin: 2rem 0;">
+
+  <div class="page-break"></div>
+  <h3>C. Connecting to the Cloud (GitHub)</h3>
+
+  <h4><code>git remote -v</code></h4>
+  <p><strong>What it does:</strong> Checks your shipping directory to see what cloud warehouse addresses are currently saved.</p>
+  <div class="cmd-block">
+    <code>git remote -v</code>
+    <span class="cmd-comment"># Shows origin fetch and push URLs</span>
+  </div>
+
+  <h4><code>git remote add origin &lt;url&gt;</code></h4>
+  <p><strong>What it does:</strong> Saves the name <code>origin</code> as a nickname for your specific GitHub warehouse address.</p>
+  <div class="cmd-block">
+    <code>git remote add origin https://github.com/Shivaxx12/AgenticAiComplete.git</code>
+    <span class="cmd-comment"># Links local repository to your GitHub repository</span>
+  </div>
+
+  <h4><code>git push</code></h4>
+  <p><strong>What it does:</strong> Loads all your new sealed boxes onto a delivery truck and sends them up to GitHub.</p>
+  <div class="cmd-block">
+    <code>git push -u origin main</code>
+    <span class="cmd-comment"># First time: uploads main branch and sets upstream link</span><br><br>
+    <code>git push</code>
+    <span class="cmd-comment"># Every subsequent time: simply type git push!</span>
+  </div>
+
+  <h4><code>git fetch</code></h4>
+  <p><strong>What it does:</strong> Calls the central warehouse to ask: <em>"Have any new boxes arrived from teammates or another computer?"</em> It downloads the tracking list into your vault, but <strong>does not</strong> touch or alter the files on your active workbench.</p>
+  <div class="cmd-block">
+    <code>git fetch origin</code>
+    <span class="cmd-comment"># Safe download of remote information without overwriting your desk</span>
+  </div>
+
+  <h4><code>git pull</code></h4>
+  <p><strong>What it does:</strong> Downloads the new boxes from the cloud warehouse AND immediately unpacks their contents onto your current workbench (a combination of <code>git fetch</code> + <code>git merge</code>).</p>
+  <div class="cmd-block">
+    <code>git pull origin main</code>
+    <span class="cmd-comment"># Updates your local project with changes made on GitHub</span>
+  </div>
+
+  <hr style="border: 0; border-top: 1px dashed var(--border); margin: 2rem 0;">
+
+  <h3>D. Viewing the Archives (Inspecting History)</h3>
+
+  <h4><code>git log</code> and <code>git log --oneline</code></h4>
+  <p><strong>What it does:</strong> Opens the master ledger book showing the receipt of every sealed box stored in your vault from newest to oldest.</p>
+  <div class="cmd-block">
+    <code>git log --oneline --graph --decorate</code>
+    <span class="cmd-comment"># A gorgeous, compact visual summary of your project timeline</span>
+  </div>
+
+  <h4><code>git show &lt;commit-hash&gt;</code></h4>
+  <p><strong>What it does:</strong> Pulls down a specific historical box by its barcode number and inspects exactly what changed inside that snapshot.</p>
+  <div class="cmd-block">
+    <code>git show 643b72c</code>
+    <span class="cmd-comment"># Inspects commit 643b72c in full detail</span>
+  </div>
+
+  <!-- CHAPTER 3: BRANCHING -->
+  <div class="page-break"></div>
+  <h2>🌿 3. Branching: Working on Parallel Assembly Lines</h2>
+  <p>Imagine you have a working AI app on your main workbench. You want to try an experimental new feature that might completely break everything. You don't want to mess up your working code. What do you do?</p>
+  <p>You set up a <strong>side workbench (branch)</strong>. You can build, experiment, and seal boxes on that side table. If it works, you merge it into the main line. If it fails, you wipe the side table with zero harm done to your main project!</p>
+
+  <div class="grid-2">
+    <div class="analogy-card">
+      <h4><code>git branch &lt;name&gt;</code></h4>
+      <p>Sets up a new side assembly line with that name, starting from the current box.</p>
+    </div>
+    <div class="analogy-card">
+      <h4><code>git switch &lt;name&gt;</code></h4>
+      <p>Walks your feet over to stand at that side assembly line (formerly <code>git checkout</code>).</p>
+    </div>
+  </div>
+
+  <div class="cmd-block">
+    <code>git switch -c feature/langgraph-agents</code>
+    <span class="cmd-comment"># Creates a new branch AND switches your workbench to it in one command</span><br><br>
+    <code>git branch</code>
+    <span class="cmd-comment"># Lists all branches; an asterisk (*) marks where you are currently standing</span><br><br>
+    <code>git switch main</code>
+    <span class="cmd-comment"># Switches your workbench back to the main branch</span><br><br>
+    <code>git merge feature/langgraph-agents</code>
+    <span class="cmd-comment"># While on main: incorporates all boxes from the feature branch into main</span><br><br>
+    <code>git branch -d feature/langgraph-agents</code>
+    <span class="cmd-comment"># Safely deletes the feature assembly line once it has been merged</span>
+  </div>
+
+  <!-- CHAPTER 4: THE DAILY 4-STEP CYCLE -->
+  <h2>🔄 4. Your Daily Workflow for Every Future Change</h2>
+  <p>Every single time you write code, finish a notebook, or add a new script, follow this exact 4-step rhythm:</p>
+
+  <div class="workflow-step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <h4>Check Your Desk: <code>git status</code></h4>
+      <p>Always inspect what you modified, added, or deleted before doing anything else.</p>
+    </div>
+  </div>
+
+  <div class="workflow-step">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <h4>Put Items into the Box: <code>git add .</code></h4>
+      <p>Place your finished work into the open box. (Or stage individual files with <code>git add path/to/file</code>).</p>
+    </div>
+  </div>
+
+  <div class="workflow-step">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <h4>Tape & Label the Box: <code>git commit -m "..."</code></h4>
+      <p>Write an action-oriented message in the present tense (e.g., <code>"Implement tool calling in notebook 3"</code>).</p>
+    </div>
+  </div>
+
+  <div class="workflow-step">
+    <div class="step-num">4</div>
+    <div class="step-content">
+      <h4>Ship to the Cloud: <code>git push</code></h4>
+      <p>Deliver your sealed box directly to your GitHub repository.</p>
+    </div>
+  </div>
+
+  <!-- CHAPTER 5: THE EMERGENCY PANIC ROOM -->
+  <div class="page-break"></div>
+  <h2>🚨 5. The Emergency Panic Room: How to Fix Problems</h2>
+  <p>Everyone makes mistakes in Git. The magic of Git is that <strong>almost nothing is permanent if you know which emergency lever to pull</strong>.</p>
+
+  <h3>Scenario 1: "I made a mess on my workbench and want to throw away unsaved edits"</h3>
+  <p><strong>The Fix:</strong> Discard uncommitted edits and reset a file back to exactly how it was in the last sealed box.</p>
+  <div class="cmd-block">
+    <code>git restore filename.py</code>
+    <span class="cmd-comment"># Replaces messy workbench file with pristine version from the vault</span><br><br>
+    <code>git restore .</code>
+    <span class="cmd-comment"># Discards ALL unsaved changes across the entire project (Caution!)</span>
+  </div>
+
+  <h3>Scenario 2: "I accidentally put a file into the open box, but I'm not ready to commit it!"</h3>
+  <p><strong>The Fix:</strong> Take the item back out of the open box and place it back on your workbench without losing any of your work.</p>
+  <div class="cmd-block">
+    <code>git restore --staged filename.py</code>
+    <span class="cmd-comment"># Unstages the file (takes it out of the box). Your edits stay intact on your desk.</span>
+  </div>
+
+  <h3>Scenario 3: "My workbench is a mess, but I urgently need to switch tasks!"</h3>
+  <p><strong>The Metaphor:</strong> The Junk Drawer (Stash). You sweep your messy workbench tools into a temporary drawer so your desk is completely clean. When you return later, you open the drawer and dump the work right back onto your desk.</p>
+  <div class="cmd-block">
+    <code>git stash</code>
+    <span class="cmd-comment"># Sweeps all uncommitted changes into the hidden stash drawer</span><br><br>
+    <code>git stash pop</code>
+    <span class="cmd-comment"># Restores your messy changes back onto your desk exactly as you left them</span>
+  </div>
+
+  <h3>Scenario 4: "I sealed a box (`git commit`), but I want to undo the commit!"</h3>
+  <p>You have three ways to rewind your last commit, ranging from gentle to nuclear:</p>
+  <div class="cmd-block">
+    <code>git reset --soft HEAD~1</code>
+    <span class="cmd-comment"># GENTLE: Unseals the box. Keeps your files sitting safely inside the OPEN box.</span><br><br>
+    <code>git reset HEAD~1</code>
+    <span class="cmd-comment"># NORMAL: Unseals the box and dumps the files back onto your WORKBENCH.</span><br><br>
+    <code>git reset --hard HEAD~1</code>
+    <span class="cmd-comment"># ⚠️ DANGER / NUCLEAR: Destroys the box AND incinerates your code changes.</span>
+  </div>
+
+  <h3>Scenario 5: "I already pushed a bad commit to GitHub and need to undo it safely!"</h3>
+  <p><strong>The Fix:</strong> Do NOT use <code>git reset</code> once code is on GitHub (it will break things for anyone else). Instead, use <code>git revert</code>. It creates a brand-new "anti-box" that surgically undoes the exact changes made by the bad commit.</p>
+  <div class="cmd-block">
+    <code>git revert 643b72c</code>
+    <span class="cmd-comment"># Creates a new commit that safely reverses commit 643b72c</span><br>
+    <code>git push</code>
+  </div>
+
+  <div class="page-break"></div>
+  <h3>Scenario 6: "The Dreaded Merge Conflict!"</h3>
+  <p><strong>What is it?</strong> A merge conflict happens when you and a teammate (or you on two different computers) edited the exact same line of the same file in two different ways. Git refuses to guess which person is right, so it holds up a flag and asks you to choose.</p>
+  <p>Git will mark the conflicting lines inside your code editor like this:</p>
+  <div class="cmd-block">
+    <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code><br>
+    <code>model = ChatOpenAI(model="gpt-4o")   # Your version</code><br>
+    <code>=======</code><br>
+    <code>model = ChatGoogleGenerativeAI(model="gemini-1.5-pro")  # Incoming version</code><br>
+    <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature-branch</code>
+  </div>
+  <p><strong>How to resolve it in 3 steps:</strong></p>
+  <ol style="margin-left: 1.5rem; margin-bottom: 1.2rem;">
+    <li>Open the file in your editor, pick the code you want to keep, and delete the <code>&lt;&lt;&lt;</code>, <code>===</code>, and <code>&gt;&gt;&gt;</code> markers.</li>
+    <li>Stage the resolved file: <code>git add filename.py</code></li>
+    <li>Commit the resolution: <code>git commit -m "Resolve merge conflict in model initialization"</code></li>
+  </ol>
+
+  <!-- CHAPTER 6: MASTER CHEATSHEET -->
+  <h2>📋 6. The Master Decision Matrix</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>What I Want To Do</th>
+        <th>Box Metaphor</th>
+        <th>Command</th>
+        <th>Safety</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>See what has changed</td>
+        <td>Look down at workbench</td>
+        <td><code>git status</code></td>
+        <td><span class="tag-safe">100% Safe</span></td>
+      </tr>
+      <tr>
+        <td>View exact code line changes</td>
+        <td>X-ray scanner on files</td>
+        <td><code>git diff</code></td>
+        <td><span class="tag-safe">100% Safe</span></td>
+      </tr>
+      <tr>
+        <td>Put all changes in the box</td>
+        <td>Fill the packing box</td>
+        <td><code>git add .</code></td>
+        <td><span class="tag-safe">100% Safe</span></td>
+      </tr>
+      <tr>
+        <td>Seal & label the box</td>
+        <td>Tape box & stamp barcode</td>
+        <td><code>git commit -m "..."</code></td>
+        <td><span class="tag-safe">100% Safe</span></td>
+      </tr>
+      <tr>
+        <td>Send boxes to GitHub</td>
+        <td>Ship truck to cloud warehouse</td>
+        <td><code>git push</code></td>
+        <td><span class="tag-safe">100% Safe</span></td>
+      </tr>
+      <tr>
+        <td>Get newest boxes from GitHub</td>
+        <td>Unpack cloud delivery to desk</td>
+        <td><code>git pull</code></td>
+        <td><span class="tag-caution">Check conflicts</span></td>
+      </tr>
+      <tr>
+        <td>Take an item out of the open box</td>
+        <td>Unpack item back to desk</td>
+        <td><code>git restore --staged &lt;file&gt;</code></td>
+        <td><span class="tag-safe">100% Safe</span></td>
+      </tr>
+      <tr>
+        <td>Discard edits to a file</td>
+        <td>Throw out scrap, get fresh copy</td>
+        <td><code>git restore &lt;file&gt;</code></td>
+        <td><span class="tag-caution">Loses uncommitted edits</span></td>
+      </tr>
+      <tr>
+        <td>Clean desk temporarily</td>
+        <td>Hide in junk drawer</td>
+        <td><code>git stash</code></td>
+        <td><span class="tag-safe">100% Safe</span></td>
+      </tr>
+      <tr>
+        <td>Undo last commit, keep code</td>
+        <td>Unseal box, leave on desk</td>
+        <td><code>git reset HEAD~1</code></td>
+        <td><span class="tag-safe">100% Safe</span></td>
+      </tr>
+      <tr>
+        <td>Undo last commit & DESTROY code</td>
+        <td>Incinerate the box & contents</td>
+        <td><code>git reset --hard HEAD~1</code></td>
+        <td><span class="tag-danger">Permanent Data Loss</span></td>
+      </tr>
+      <tr>
+        <td>Safely undo an uploaded commit</td>
+        <td>Ship an anti-box that cancels it</td>
+        <td><code>git revert &lt;hash&gt;</code></td>
+        <td><span class="tag-safe">100% Safe</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- CHAPTER 7: GOLDEN RULES -->
+  <h2>👑 7. The 5 Golden Rules of Git</h2>
+  <div class="callout callout-warning">
+    <strong>1. Never Commit Secrets:</strong> Always ensure <code>.env</code> is inside your <code>.gitignore</code>. Never hardcode an API key directly in a Python file or Jupyter notebook cell.<br><br>
+    <strong>2. Never Commit Dependencies:</strong> Always keep <code>.venv/</code> ignored. Only commit <code>requirements.txt</code> or <code>pyproject.toml</code>.<br><br>
+    <strong>3. Commit Often, Keep Boxes Small:</strong> Don't wait 3 weeks to make a massive 5,000-line commit. Make small, focused commits every time a function or exercise works.<br><br>
+    <strong>4. Write Informative Sticky Notes:</strong> Write commit messages that describe <em>why</em> you changed something (e.g., <code>"Fix rate limit handling in Anthropic client"</code> instead of <code>"update code"</code>).<br><br>
+    <strong>5. When in Doubt, Check Status:</strong> Running <code>git status</code> can never break anything. It is your flashlight in the dark.
+  </div>
+
+  <p style="text-align: center; color: var(--muted); font-size: 0.85rem; margin-top: 3rem; border-top: 1px solid var(--border-light); padding-top: 1.5rem;">
+    Generated for Shiva • LangChain & AI Engineering Course • Keep this guide handy!
+  </p>
+
+</div>
+
+</body>
+</html>
